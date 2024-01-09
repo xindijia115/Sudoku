@@ -102,8 +102,8 @@ public class SudokuGenerator {
 
     //获得问题的解
     public int[][] getBoard() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 System.out.print(board[i][j] + " ");
             }
             System.out.println();

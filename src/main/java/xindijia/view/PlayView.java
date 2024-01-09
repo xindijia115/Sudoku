@@ -1,23 +1,23 @@
 package xindijia.view;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import xindijia.entity.Data;
 import xindijia.service.SudokuGenerator;
 
-import java.util.Date;
+
 import java.util.Optional;
 
 /**
@@ -32,17 +32,20 @@ public class PlayView extends Application {
     public void start(Stage stage) throws Exception {
         VBox vBox = new VBox(10);
         GridPane gridPane = new GridPane();
-        Label label = new Label("第一关");
-        label.setFont(Font.font(20));
-
+        Label label;
 
         // 创建格子并添加到GridPane
         SudokuGenerator sudokuGenerator = new SudokuGenerator();
 
         Data data = (Data) stage.getUserData();
         if (data == null) {//没有设置难度,按照默认的参数
+            label = new Label("第1关");
+            label.setFont(Font.font(24));
             sudokuGenerator.generate(40);
         } else {
+            int no = data.getNo();
+            label = new Label("第" + no + "关");
+            label.setFont(Font.font(24));
             sudokuGenerator.generate(data.getDegree());//设置难度
         }
 
@@ -55,6 +58,11 @@ public class PlayView extends Application {
                 cell.setFont(Font.font(16));
                 cell.setMinSize(60, 60);
                 cell.setMaxSize(60, 60);
+//                if ((row < 3 || row > 5) && (col < 3 || col > 5)) {
+//                    cell.setStyle("-fx-background-color: #eff6ee;");
+//                } else {
+//                    cell.setStyle("-fx-background-color: #b2d1c5;");
+//                }
                 if (question[row][col] == 0) {
                     cell.setText("");
                 } else {
@@ -85,7 +93,6 @@ public class PlayView extends Application {
         }
 
         HBox hBox = new HBox(20);
-        hBox.setPadding(new Insets(20, 60, 20, 60));
         //确定
         Button sure = new Button("确定");
         sure.setFont(Font.font(20));
@@ -135,6 +142,12 @@ public class PlayView extends Application {
             }
             if (flag) {
                 //跳转到下一关
+                Data userData = (Data) stage.getUserData();
+                if(userData == null) {
+                    userData = new Data();
+                }
+                userData.setNo(userData.getNo() + 1);
+                stage.setUserData(userData);
                 try {
                     new PlayView().start(stage);
                 } catch (Exception e) {
@@ -163,9 +176,11 @@ public class PlayView extends Application {
             }
         });
         hBox.getChildren().addAll(sure, next, exit);
+        hBox.setPadding(new Insets(10, 60, 20, 10));
 
 
         vBox.getChildren().addAll(label, gridPane, hBox);
+        vBox.setPadding(new Insets(10, 60, 20, 10));
         Scene scene = new Scene(vBox, 700, 700);
         stage.setScene(scene);
         stage.show();

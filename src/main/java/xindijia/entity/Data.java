@@ -8,9 +8,12 @@ public class Data {
     private int degree;
     private String time;
 
-    public Data(int degree, String time) {
+    private int no = 1;
+
+    public Data(int degree, String time, int no) {
         this.degree = degree;
         this.time = time;
+        this.no = no;
     }
 
     public Data() {
@@ -30,5 +33,13 @@ public class Data {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
     }
 }

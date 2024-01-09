@@ -65,6 +65,7 @@ public class HomePageView extends Application {
         vBox.getChildren().addAll(play, solution, setting);
         Scene scene = new Scene(vBox, 600, 600);
         stage.setScene(scene);
+        stage.setTitle("数独世界");
         stage.show();
     }
 }

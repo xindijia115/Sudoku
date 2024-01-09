@@ -2,6 +2,7 @@ package xindijia.view;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -45,12 +46,14 @@ public class SolutionView extends Application {
         }
 
 
-        Label label = new Label("欢迎来到数独的世界");
+        Label label = new Label("请输入你要求解的数独");
         label.setFont(Font.font(20));
 
 
         HBox hBox = new HBox(10);
         Button solution = new Button("解题");
+        solution.setMaxSize(100, 50);
+        solution.setMinSize(100, 50);
         solution.setFont(Font.font(20));
         solution.setOnAction(event -> {
             //获取数据
@@ -117,6 +120,8 @@ public class SolutionView extends Application {
 
         Button reset = new Button("重置");
         reset.setFont(Font.font(20));
+        reset.setMaxSize(100, 50);
+        reset.setMinSize(100, 50);
         reset.setOnAction(event -> {
             ObservableList<Node> children = gridPane.getChildren();
             for (Node child : children) {
@@ -128,6 +133,8 @@ public class SolutionView extends Application {
 
         Button back = new Button("返回");
         back.setFont(Font.font(20));
+        back.setMaxSize(100, 50);
+        back.setMinSize(100, 50);
         back.setOnAction(event -> {
             try {
                 new HomePageView().start(stage);
@@ -137,11 +144,13 @@ public class SolutionView extends Application {
         });
 
         hBox.getChildren().addAll(solution, reset, back);
+        hBox.setPadding(new Insets(10, 60, 20, 10));
 
         vBox.getChildren().addAll(label, gridPane, hBox);
+        vBox.setPadding(new Insets(10, 60, 20, 10));
         Scene scene = new Scene(vBox, 700, 700);
         stage.setScene(scene);
-        stage.setTitle("GridPane Example");
+        stage.setTitle("数独世界");
         stage.show();
     }
 }
