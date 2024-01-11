@@ -83,18 +83,20 @@ public class SolutionView extends Application {
 //                    {0, 0, 9, 2, 0, 5, 8, 0, 0},
 //                    {8, 0, 4, 0, 0, 0, 1, 0, 7}};
             //判断是否 全 为空
+            int num = 0;
             boolean flag = true;
             for (int x = 0; x < SIZE; x++) {
                 for (int y = 0; y < SIZE; y++) {
                     if (map[x][y] != 0) {
+                        num++;
                         flag = false;
                     }
                 }
             }
-            if (flag) {
+            if (flag || num < 17) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("错误提示");
-                alert.setContentText("输入的数据不能为空");
+                alert.setContentText("输入的数据有误");
                 alert.showAndWait();
             } else {
                 //调用函数解决
